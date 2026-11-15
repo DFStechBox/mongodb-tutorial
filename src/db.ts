@@ -16,7 +16,7 @@ export async function connectDB(): Promise<Db> {
 
   client = new MongoClient(process.env.MONGO_URI as string);
   await client.connect();
-  db = client.db('taskdb'); // Replace 'taskdb' with your database name
+  db = client.db('taskdb'); 
 
   console.log(`Connected to MongoDB database: ${db.databaseName}`)
 
@@ -26,7 +26,7 @@ export async function connectDB(): Promise<Db> {
 export async function closeDB(): Promise<void> {
   if (client) {
     await client.close();
-    console.log(`Donnected from MongoDB ${db?.databaseName}`);
+    console.log(`Disconnected from MongoDB ${db?.databaseName}`);
   }
 
 
