@@ -4,17 +4,17 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-let client: MongoClient | undefined;
-let db: Db | undefined;
+let client;
+let db;
 
-export async function connectDB(): Promise<Db> {
+export async function connectDB() {
 
   // Singleton pattern to ensure only one instance of MongoClient is created
   if (db) {
     return db;
   }
 
-  client = new MongoClient(process.env.MONGO_URI as string);
+  client = new MongoClient(process.env.MONGO_URI);
   await client.connect();
   db = client.db('taskdb'); 
 
@@ -23,7 +23,7 @@ export async function connectDB(): Promise<Db> {
   return db;
 };
 
-export async function closeDB(): Promise<void> {
+export async function closeDB() {
   if (client) {
     await client.close();
     console.log(`Disconnected from MongoDB ${db?.databaseName}`);
